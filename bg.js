@@ -5,30 +5,20 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 chrome.tabs.onCreated.addListener(async (tab) => {
-  console.info("create");
-  console.log(tab.pendingUrl);
-  if (tab.status !== "complete") {
-    console.info("create");
+  if (tab.status !== "complete" && tab.pendingUrl === "chrome://newtab/") {
+    console.log(tab.pendingUrl);
     console.log(tab);
-    if (["chrome://newtab/", "chrome://new-tab-page/", ""].includes(tab.url)) {
-      console.log("I am new tab");
-      //   let url = chrome.runtime.getURL("index.html");
-      let tabL = await chrome.tabs.update({ url: "index.html" });
-
-      console.log("create new kitty");
-      //   console.log(tabL);
-      //   chrome.tabs.create({ url: "" });
-    }
-    console.log(`Created tab`);
+    let tabL = await chrome.tabs.update({ url: "index.html" });
+    console.log("create new kitty");
   }
 });
 
-chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
-  console.info("update complete!\n setting new kitty");
-  console.log(tab);
-  if (["chrome://newtab/", "chrome://new-tab-page/", ""].includes(tab?.url)) {
-    console.log("I am new tab");
-    await chrome.tabs.update({ url: "index.html" });
-    console.log("created new kitty");
-  }
-});
+// chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
+// console.info("update complete!\n setting new kitty");
+// console.log(tab);
+// if (["chrome://newtab/", "chrome://new-tab-page/", ""].includes(tab?.url)) {
+//   console.log("I am new tab");
+//   await chrome.tabs.update({ url: "index.html" });
+//   console.log("created new kitty");
+// }
+// });
