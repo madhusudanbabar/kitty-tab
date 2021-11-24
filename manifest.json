@@ -2,5 +2,9 @@
   "name": "Kat",
   "description": "Shows new Kat everytime you open a new tab!",
   "version": "1.0",
-  "manifest_version": 3
+  "manifest_version": 3,
+  "permissions": ["activeTab", "tabs"],
+  "background": {
+    "service_worker": "bg.js"
+  }
 }
