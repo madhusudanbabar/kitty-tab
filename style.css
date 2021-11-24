@@ -22,6 +22,7 @@ body {
 .tab {
   height: calc(100vh - 0.3rem);
   width: 100vw;
+  position: relative;
 }
 
 .tab__fig, .tab__pic {
@@ -34,5 +35,28 @@ body {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.tab__actions-menu {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 9;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-inline: 10rem;
+  height: 10rem;
+}
+
+.tab__icon {
+  display: block;
+  width: 10rem;
+  height: 10rem;
+  font-size: 2.125rem;
+  color: #ed125b;
 }
 /*# sourceMappingURL=style.css.map */

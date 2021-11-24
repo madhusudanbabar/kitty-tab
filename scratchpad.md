@@ -16,3 +16,7 @@
 - bookmarks
 - daily todo
 - shuffle Kat / new Kat
+
+# TODO
+
+- show offline cats if no network connectivity available ( Especially the user's favourite cats )
