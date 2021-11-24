@@ -8,7 +8,7 @@ chrome.tabs.onCreated.addListener(async (tab) => {
   if (tab.status !== "complete" && tab.pendingUrl === "chrome://newtab/") {
     console.log(tab.pendingUrl);
     console.log(tab);
-    let tabL = await chrome.tabs.update({ url: "index.html" });
+    let tabL = await chrome.tabs.update(tab.id, { url: "index.html" });
     console.log("create new kitty");
   }
 });

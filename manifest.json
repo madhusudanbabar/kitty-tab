@@ -6,5 +6,8 @@
   "permissions": ["activeTab", "tabs"],
   "background": {
     "service_worker": "bg.js"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
   }
 }
