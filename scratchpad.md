@@ -35,4 +35,5 @@
 
 # WIP
 
-- favourite Kat
+[ ] favourite Kat
+[ x ] remove duplicates

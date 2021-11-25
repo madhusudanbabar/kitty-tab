@@ -1,4 +1,6 @@
 var imgDetails;
+let img_placeholder;
+let localCats = JSON.parse(localStorage.getItem("favKats"));
 
 window.addEventListener("load", () => {
   // console.log("img", img);
@@ -14,7 +16,7 @@ window.addEventListener("load", () => {
       console.log(e);
     };
     img.setAttribute("class", "tab__img");
-    let img_placeholder = document.querySelector(".tab__pic");
+    img_placeholder = document.querySelector(".tab__pic");
     img_placeholder.appendChild(img);
   });
 });
@@ -26,20 +28,32 @@ document.addEventListener("DOMContentLoaded", () => {
   let btn_debug = document.querySelector(".tab__icon--debug");
 
   btn_heart.addEventListener("click", () => {
-    let localCats = [];
     // get local cats
-    localCats = JSON.parse(localStorage.getItem("favKats"));
-    localCats
-      ? localStorage.setItem(
-          "favKats",
-          JSON.stringify([...localCats, imgDetails.url])
-        )
-      : localStorage.setItem("favKats", JSON.stringify([imgDetails.url]));
-
+    if (localCats instanceof Array && localCats.length > 0) {
+      if (localCats.includes(imgDetails.url)) {
+        console.log("already in local storage");
+      } else {
+        localCats.push(imgDetails.url);
+        localStorage.setItem("favKats", JSON.stringify(localCats));
+        console.log(localCats);
+      }
+    } else {
+      localCats = [];
+      localCats.push(imgDetails.url);
+      localStorage.setItem("favKats", JSON.stringify(localCats));
+    }
     console.log("localCats", localCats);
   });
 
   btn_shuffle.addEventListener("click", () => {
+    if (localCats) {
+      img_placeholder.removeChild(img_placeholder.firstChild);
+      let img = new Image();
+      img.src = localCats[Math.floor(Math.random() * localCats.length)];
+      img.onload = function (e) {
+        img_placeholder.appendChild(img);
+      };
+    }
     console.log("shuffle clicked");
     // todo
   });
