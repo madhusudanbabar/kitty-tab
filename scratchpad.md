@@ -16,7 +16,14 @@
 - bookmarks
 - daily todo
 - shuffle Kat / new Kat
+- download button
+- favourite pet ( User Input )
+- filter new Kat
 
 # TODO
 
 - show offline cats if no network connectivity available ( Especially the user's favourite cats )
+
+# In Progress
+
+- favourite Kats

@@ -7,6 +7,10 @@
   margin: 0;
 }
 
+:root {
+  --color-accent: hsl(340, 86%, 50%);
+}
+
 html {
   font-size: 62.5%;
 }
@@ -54,9 +58,14 @@ body {
 
 .tab__icon {
   display: block;
-  width: 10rem;
-  height: 10rem;
   font-size: 2.125rem;
-  color: #ed125b;
+  padding: 1rem;
+  color: var(--color-accent);
+  -webkit-transition: color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.tab__icon:hover {
+  color: #4465d4;
 }
 /*# sourceMappingURL=style.css.map */
