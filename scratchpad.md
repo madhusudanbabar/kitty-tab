@@ -32,8 +32,15 @@
 
 - url doesn't actually expands in the src attribute,
   so I need to figure out the URL after redirection, so for that purpose, I'll need to use fetch API instead of directly using the URL, so that I can use later keep track of favourites and un-favourites.
+- define schema for favourite cats
+  - "favKats" : [ {
+    "data_uri": "",
+    "url": "",
+    }
+    ]
 
 # WIP
 
-[ ] favourite Kat
-[ x ] remove duplicates
+- [ x ] favourite Kat
+- [ x ] remove duplicates
+- [] save favourites to local storage
