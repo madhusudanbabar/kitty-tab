@@ -2,31 +2,40 @@ var imgDetails;
 let img_placeholder;
 let localCats = JSON.parse(localStorage.getItem("favKats"));
 
-function getKitty() {
-  fetch("https://source.unsplash.com/1920x1080/?cat").then((res) => {
-    console.log(res);
-
-    let img = new Image();
-    img.src = res.url;
-    img.crossOrigin = "Anonymous";
-    img.alt = "A lovely cat";
-    imgDetails = res;
-    img.onload = function (e) {
-      console.log("image loaded");
-      console.log(e);
-    };
-    img.setAttribute("class", "tab__img");
-    img_placeholder = document.querySelector(".tab__pic");
-    // remove old child if exists
-    if (img_placeholder.firstChild) {
-      img_placeholder.removeChild(img_placeholder.firstChild);
-    }
-    img_placeholder.appendChild(img);
-    return imgDetails;
-  });
+function kat(res) {
+  let img = new Image();
+  img.src = res;
+  img.crossOrigin = "Anonymous";
+  img.alt = "A lovely cat";
+  imgDetails = res;
+  img.onload = function (e) {
+    // console.log("image loaded");
+    // console.log(e);
+  };
+  img.setAttribute("class", "tab__img");
+  img_placeholder = document.querySelector(".tab__pic");
+  // remove old child if exists
+  if (img_placeholder.firstChild) {
+    img_placeholder.removeChild(img_placeholder.firstChild);
+  }
+  img_placeholder.appendChild(img);
+  // return imgDetails;
 }
 
-window.addEventListener("load", () => getKitty());
+function kitty() {
+  // check if network is available
+  if (navigator.onLine) {
+    fetch("https://source.unsplash.com/1920x1080/?cat").then((res) => {
+      // console.log(res);
+      kat(res.url);
+    });
+  } else {
+    // if network is not available
+    alert("No internet connection");
+  }
+}
+
+window.addEventListener("load", () => kitty());
 
 document.addEventListener("DOMContentLoaded", () => {
   let btn_heart = document.querySelector(".tab__icon--heart");
@@ -58,27 +67,33 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       if (!isInLocalStorage) {
         localCats.push(newCat);
-        localStorage.setItem("favKats", JSON.stringify(localCats));
+        try {
+          localStorage.setItem("favKats", JSON.stringify(localCats));
+        } catch (error) {
+          console.log(error.message);
+        }
       }
     } else {
       localCats = [];
       localCats.push(newCat);
-      localStorage.setItem("favKats", JSON.stringify(localCats));
+      try {
+        localStorage.setItem("favKats", JSON.stringify(localCats));
+      } catch (error) {
+        console.log(error.message);
+      }
     }
     console.log("localCats", localCats);
   });
 
-  btn_shuffle.addEventListener("click", () => {
+  btn_shuffle.addEventListener("click", async () => {
     if (localCats) {
-      img_placeholder.removeChild(img_placeholder.firstChild);
-      let img = new Image();
-      img.src = localCats[Math.floor(Math.random() * localCats.length)];
-      img.onload = function (e) {
-        img_placeholder.appendChild(img);
-      };
+      let randomCat = localCats[Math.floor(Math.random() * localCats.length)];
+
+      console.log("randomCat", randomCat);
+      kat(randomCat.data_uri);
     } else {
       console.log("no cats in local storage");
-      getKitty();
+      await kitty();
     }
     console.log("shuffle clicked");
     // todo
