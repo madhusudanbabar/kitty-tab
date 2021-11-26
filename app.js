@@ -2,16 +2,25 @@ var imgDetails;
 let img_placeholder;
 let localCats = JSON.parse(localStorage.getItem("favKats"));
 
+function shuffleKitty() {
+  localCats
+    ? kat(localCats[Math.floor(Math.random() * localCats.length)].data_uri)
+    : kitty();
+  console.log("shuffle clicked");
+}
+
 function kat(res) {
   let img = new Image();
   img.src = res;
   img.crossOrigin = "Anonymous";
   img.alt = "A lovely cat";
   imgDetails = res;
-  img.onload = function (e) {
-    // console.log("image loaded");
-    // console.log(e);
+
+  img.onerror = function () {
+    console.log("error");
+    shuffleKitty();
   };
+
   img.setAttribute("class", "tab__img");
   img_placeholder = document.querySelector(".tab__pic");
   // remove old child if exists
@@ -26,12 +35,11 @@ function kitty() {
   // check if network is available
   if (navigator.onLine) {
     fetch("https://source.unsplash.com/1920x1080/?cat").then((res) => {
-      // console.log(res);
       kat(res.url);
     });
   } else {
-    // if network is not available
-    alert("No internet connection");
+    console.log("no network");
+    shuffleKitty();
   }
 }
 
@@ -85,19 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("localCats", localCats);
   });
 
-  btn_shuffle.addEventListener("click", async () => {
-    if (localCats) {
-      let randomCat = localCats[Math.floor(Math.random() * localCats.length)];
-
-      console.log("randomCat", randomCat);
-      kat(randomCat.data_uri);
-    } else {
-      console.log("no cats in local storage");
-      await kitty();
-    }
-    console.log("shuffle clicked");
-    // todo
-  });
+  btn_shuffle.addEventListener("click", () => shuffleKitty());
 
   btn_menu.addEventListener("click", () => {
     console.log("menu clicked");
