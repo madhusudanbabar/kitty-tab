@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let btn_shuffle = document.querySelector(".tab__icon--shuffle");
   let btn_menu = document.querySelector(".tab__icon--menu");
   let btn_debug = document.querySelector(".tab__icon--debug");
+  let btn_download = document.querySelector(".tab__icon--download");
 
   btn_heart.addEventListener("click", () => {
     // get local cats
@@ -66,6 +67,30 @@ document.addEventListener("DOMContentLoaded", () => {
   btn_debug.addEventListener("click", () => {
     imgDetails ? console.log(imgDetails) : console.log("Sed Lyf! no img");
     // todo
+  });
+
+  btn_download.addEventListener("click", () => {
+    // let dw = browser.downloads.download({
+    //   url: imgDetails.url,
+    //   filename: "cat.jpg",
+    // });
+
+    // dw.then((res) => {
+    //   console.log("downloading", res);
+    // });
+
+    // create a link to download the image
+    // let link = document.createElement("a");
+    // link.href = imgDetails.url;
+    // link.download = "cat.jpg";
+    // link.click();
+
+    let blob = new Blob([imgDetails.url], { type: "image/jpeg" });
+    let url = URL.createObjectURL(blob);
+    let link = document.createElement("a");
+    link.href = url;
+    link.download = "cat.jpg";
+    link.click();
   });
 });
 
